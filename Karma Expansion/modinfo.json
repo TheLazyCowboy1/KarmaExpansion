@@ -1,0 +1,10 @@
+{
+  "id": "LazyCowboy.RegionRandomizer",
+  "name": "Region Randomizer",
+  "version": "1.0.0",
+  "authors": "LazyCowboy",
+  "description": "Randomizes the connections between regions, redirecting karma gates to load different regions.",
+  "requirements": [],
+  "requirements_names": [],
+  "checksum_override_version": true
+}
