@@ -72,9 +72,12 @@ namespace KarmaExpansion;
 [BepInDependency("rwmodding.coreorg.rk", BepInDependency.DependencyFlags.HardDependency)]
 [BepInDependency("lb-fgf-m4r-ik.chatoyant-waterfalls-but-real", BepInDependency.DependencyFlags.SoftDependency)] //chasing wind
 
-[BepInPlugin("LazyCowboy.KarmaExpansion", "Karma Expansion", "1.0.2")]
+[BepInPlugin(MOD_ID, MOD_NAME, MOD_VERSION)]
 public partial class KarmaExpansion : BaseUnityPlugin
 {
+    public const string MOD_ID = "LazyCowboy.KarmaExpansion";
+    public const string MOD_NAME = "Karma Expansion";
+    public const string MOD_VERSION = "1.1.1";
 
     //public static RegionRandomizerOptions Options;
 
@@ -142,13 +145,15 @@ public partial class KarmaExpansion : BaseUnityPlugin
             On.HUD.KarmaMeter.KarmaSymbolSprite += KarmaMeter_KarmaSymbolSprite;
 
             //register all custom karma gate requirements
-            for (int i = 11; i <= 22; i++)
+            for (int i = 11; i <= 34; i++)
                 new RegionGate.GateRequirement(i.ToString(), true);
 
             //load custom atlases
             try
             {
-                Futile.atlasManager.LoadAtlas(AssetManager.ResolveDirectory("assets\\KarmaExpansion") + "\\ExtraKarmaSymbols");
+                //Futile.atlasManager.LoadAtlas(AssetManager.ResolveDirectory("assets\\KarmaExpansion") + "\\ExtraKarmaSymbols");
+                Futile.atlasManager.LoadAtlas(AssetManager.ResolveDirectory("assets\\KarmaExpansion") + "\\Karma 11-22");
+                Futile.atlasManager.LoadAtlas(AssetManager.ResolveDirectory("assets\\KarmaExpansion") + "\\Karma 23-34");
             }
             catch (Exception ex)
             {
@@ -168,7 +173,7 @@ public partial class KarmaExpansion : BaseUnityPlugin
     #region HOOKS
     public static void RainWorldGame_GhostShutDown(On.RainWorldGame.orig_GhostShutDown orig, RainWorldGame self, GhostWorldPresence.GhostID ghostID)
     {
-        if (self.GetStorySession.saveState.deathPersistentSaveData.karmaCap >= 9 && self.GetStorySession.saveState.deathPersistentSaveData.karmaCap < 21)
+        if (self.GetStorySession.saveState.deathPersistentSaveData.karmaCap >= 9 && self.GetStorySession.saveState.deathPersistentSaveData.karmaCap < 33)
         {
             if (self.manager.upcomingProcess != null)
             {
@@ -197,7 +202,7 @@ public partial class KarmaExpansion : BaseUnityPlugin
 
     public static void SaveState_IncreaseKarmaCapOneStep(On.SaveState.orig_IncreaseKarmaCapOneStep orig, SaveState self)
     {
-        if (self.deathPersistentSaveData.karmaCap >= 9 && self.deathPersistentSaveData.karmaCap < 21) //raise karma if >= 10 and less than 22
+        if (self.deathPersistentSaveData.karmaCap >= 9 && self.deathPersistentSaveData.karmaCap < 33) //raise karma if >= 10 and less than 22
             self.deathPersistentSaveData.karmaCap++;
         orig(self);
     }
@@ -234,7 +239,7 @@ public partial class KarmaExpansion : BaseUnityPlugin
             self.deathPersistentSaveData.karmaCap = num2;
         }
         */
-        if (self.deathPersistentSaveData.karmaCap < 21)
+        if (self.deathPersistentSaveData.karmaCap < 33)
             self.deathPersistentSaveData.karmaCap++;
 
         orig(self, ghost, rainWorld);
@@ -254,7 +259,7 @@ public partial class KarmaExpansion : BaseUnityPlugin
         //if karma or karmaCap changed
         if ((self.oracle.room.game.session as StoryGameSession).saveState.deathPersistentSaveData.karma != k || (self.oracle.room.game.session as StoryGameSession).saveState.deathPersistentSaveData.karmaCap != c)
         {
-            (self.oracle.room.game.session as StoryGameSession).saveState.deathPersistentSaveData.karmaCap = c + ((c < 21) ? 1 : 0); //increase karma cap by 1, unless already at max
+            (self.oracle.room.game.session as StoryGameSession).saveState.deathPersistentSaveData.karmaCap = c + ((c < 33) ? 1 : 0); //increase karma cap by 1, unless already at max
             //(self.oracle.room.game.session as StoryGameSession).saveState.deathPersistentSaveData.karma = 21;
 
             //copied from original code: code to update karma meter graphics
@@ -280,7 +285,7 @@ public partial class KarmaExpansion : BaseUnityPlugin
             else if (k.x <= 9)
                 return (small ? "smallKarma" : "karma") + k.x.ToString() + "-9";
             else
-                return (small ? "smallKarma" : "karma") + Mathf.Clamp(k.x, 0, 21);
+                return (small ? "smallKarma" : "karma") + Mathf.Clamp(k.x, 0, 33);
                 //return "smallKarma" + Mathf.Clamp(k.x, 0, 21);
         }
         else
