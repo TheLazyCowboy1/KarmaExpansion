@@ -58,7 +58,7 @@
       <HintPath>..\REFERENCES\MonoMod.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>RESOURCES\PUBLIC-Assembly-CSharp.dll</HintPath>
+      <HintPath>..\REFERENCES\PUBLIC-Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\REFERENCES\UnityEngine.dll</HintPath>
