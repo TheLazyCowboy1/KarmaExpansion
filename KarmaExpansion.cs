@@ -20,7 +20,7 @@ public partial class KarmaExpansion : BaseUnityPlugin
 {
     public const string MOD_ID = "LazyCowboy.KarmaExpansion";
     public const string MOD_NAME = "Karma Expansion";
-    public const string MOD_VERSION = "1.1.1";
+    public const string MOD_VERSION = "1.1.2";
 
     //public static RegionRandomizerOptions Options;
 

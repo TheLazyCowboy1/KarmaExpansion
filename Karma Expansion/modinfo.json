@@ -1,11 +1,11 @@
 {
   "id": "LazyCowboy.KarmaExpansion",
   "name": "Karma Expansion",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "authors": "LazyCowboy",
   "description": "Adds 24 additional karma! Now you can earn up to 34 karma. Also adds gates for each new karma value.<LINE><LINE>This mod was designed to complement my Region Randomizer mod. It got boring having the randomizer be beatable with only 4 echoes... A 28 echo requirement sounds better.<LINE>Alternatively, this mod can be used as a form of easy mode, since it allows the player to obtain more karma than usual. It also rewards finding echoes after receiving the mark of communication.<LINE><LINE>KNOWN ISSUES:<LINE>* Five Pebbles will NOT raise your karma if you visit him with a cap of 10 AND a current value of 10.<LINE>* Modded iterators, like Chasing Wind, are currently untested. They may reset your karma cap down to 10 if encountered (if so, let me know so I can fix it).<LINE>* Sprites are slightly fuzzy.<LINE><LINE>NEW KARMA SPRITES for karma 11-22 by Melons.<LINE>Old sprites are now karma 23-34.",
   "requirements": ["regionkit"],
   "requirements_names": ["Region Kit"],
-  "tags": ["Dependency", "Game Mechanics"],
+  "tags": ["Dependency", "Game Mechanics", "Base", "Downpour", "Watcher"],
   "checksum_override_version": false
 }
