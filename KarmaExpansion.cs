@@ -20,7 +20,7 @@ public partial class KarmaExpansion : BaseUnityPlugin
 {
     public const string MOD_ID = "LazyCowboy.KarmaExpansion";
     public const string MOD_NAME = "Karma Expansion";
-    public const string MOD_VERSION = "1.1.2";
+    public const string MOD_VERSION = "1.1.3";
 
     //public static RegionRandomizerOptions Options;
 
@@ -55,9 +55,11 @@ public partial class KarmaExpansion : BaseUnityPlugin
             On.SaveState.IncreaseKarmaCapOneStep -= SaveState_IncreaseKarmaCapOneStep;
             On.SaveState.GhostEncounter -= SaveState_GhostEncounter;
             On.SSOracleBehavior.Update -= SSOracleBehavior_Update;
+            On.TempleGuardAI.ThrowOutScore -= TempleGuardAI_ThrowOutScore;
             On.HUD.Map.GateMarker.ctor -= GateMarker_ctor;
             On.GateKarmaGlyph.DrawSprites -= GateKarmaGlyph_DrawSprites;
             On.HUD.KarmaMeter.KarmaSymbolSprite -= KarmaMeter_KarmaSymbolSprite;
+            IsInit = false;
         }
     }
 
@@ -81,6 +83,8 @@ public partial class KarmaExpansion : BaseUnityPlugin
             On.SaveState.GhostEncounter += SaveState_GhostEncounter;
 
             On.SSOracleBehavior.Update += SSOracleBehavior_Update;
+
+            On.TempleGuardAI.ThrowOutScore += TempleGuardAI_ThrowOutScore;
 
             On.HUD.Map.GateMarker.ctor += GateMarker_ctor;
             On.GateKarmaGlyph.DrawSprites += GateKarmaGlyph_DrawSprites;
@@ -215,6 +219,15 @@ public partial class KarmaExpansion : BaseUnityPlugin
                 }
             }
         }
+    }
+
+
+    //Fixes guardians throwing out non-Artificer players with > 9 karma
+    private float TempleGuardAI_ThrowOutScore(On.TempleGuardAI.orig_ThrowOutScore orig, TempleGuardAI self, Tracker.CreatureRepresentation crit)
+    {
+        if (crit.representedCreature.realizedObject is Player player && player.KarmaCap > 9)
+            return 0f;
+        return orig(self, crit);
     }
 
     public static string KarmaMeter_KarmaSymbolSprite(On.HUD.KarmaMeter.orig_KarmaSymbolSprite orig, bool small, IntVector2 k)
